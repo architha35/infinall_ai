@@ -325,6 +325,9 @@ renders/final.mp4
 ## Project Structure
 
 ```text
+## Project Structure
+
+```text
 infinall_ai/
 ├── src/
 │   ├── pipeline.js
@@ -332,12 +335,31 @@ infinall_ai/
 │   ├── assets.js
 │   └── generator.js
 ├── assets/
+│   └── Generated visual assets
 ├── verification/
+│   └── HyperFrames verification results
 ├── renders/
+│   └── Rendered MP4 output
+├── submission/
+│   ├── brief-1-water/
+│   │   ├── brief.txt
+│   │   ├── check.json
+│   │   └── final.mp4
+│   ├── brief-2-coding/
+│   │   ├── brief.txt
+│   │   ├── check.json
+│   │   └── final.mp4
+│   └── brief-3-productivity/
+│       ├── brief.txt
+│       ├── check.json
+│       └── final.mp4
 ├── plan.json
-├── repair.json
-├── .env
-└── package.json
+├── hyperframes.json
+├── meta.json
+├── index.html
+├── package.json
+├── package-lock.json
+└── .gitignore
 ```
 
 > Note: the project-structure tree above is a best-effort reconstruction — the source screenshot cut off before showing the full file list, so double-check this section against your actual repo before publishing.
