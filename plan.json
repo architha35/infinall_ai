@@ -1,0 +1,157 @@
+{
+  "title": "Why Drinking Water Is Important",
+  "duration": 10,
+  "width": 1080,
+  "height": 1920,
+  "aspect_ratio": "9:16",
+  "scenes": [
+    {
+      "id": "scene-1",
+      "start": 0,
+      "duration": 2,
+      "purpose": "Hook viewers with a clear statement about hydration.",
+      "elements": [
+        {
+          "type": "text",
+          "content": "DRINK WATER",
+          "role": "headline",
+          "animation": "Scale up from 90% to 100% with a quick ease-out pop; slight upward slide."
+        },
+        {
+          "type": "text",
+          "content": "Your body runs on it.",
+          "role": "subheadline",
+          "animation": "Fade in 0.3 seconds after headline; slide up 30px."
+        },
+        {
+          "type": "shape",
+          "content": "large translucent water droplet behind text",
+          "role": "background-accent",
+          "animation": "Float upward slowly while rotating 3 degrees."
+        }
+      ],
+      "visual_direction": "Clean vertical layout with bright white background, electric blue accents, bold modern sans-serif typography, and subtle animated water droplets."
+    },
+    {
+      "id": "scene-2",
+      "start": 2,
+      "duration": 2.5,
+      "purpose": "Explain that water supports energy and focus.",
+      "elements": [
+        {
+          "type": "text",
+          "content": "Boosts Energy",
+          "role": "headline",
+          "animation": "Slide in from left with motion blur; settle with a small bounce."
+        },
+        {
+          "type": "text",
+          "content": "Helps you stay alert, focused, and ready to move.",
+          "role": "body",
+          "animation": "Fade in line by line from bottom."
+        },
+        {
+          "type": "icon",
+          "content": "minimal lightning bolt icon",
+          "role": "supporting-visual",
+          "animation": "Pulse twice with blue glow.",
+          "asset": "assets/scene-2-3-minimal-lightning-bolt-icon.png"
+        },
+        {
+          "type": "shape",
+          "content": "thin blue progress wave across lower third",
+          "role": "motion-accent",
+          "animation": "Wave travels left to right continuously."
+        }
+      ],
+      "visual_direction": "Modern infographic style; place text in upper center with icon beneath it. Use high contrast blue and white, energetic motion, and crisp spacing."
+    },
+    {
+      "id": "scene-3",
+      "start": 4.5,
+      "duration": 2.5,
+      "purpose": "Explain that water helps regulate body temperature and supports digestion.",
+      "elements": [
+        {
+          "type": "text",
+          "content": "Regulates + Supports",
+          "role": "headline",
+          "animation": "Fade in with vertical wipe from bottom to top."
+        },
+        {
+          "type": "text",
+          "content": "Temperature control",
+          "role": "benefit",
+          "animation": "Slide in from right; appear with checkmark pop."
+        },
+        {
+          "type": "text",
+          "content": "Healthy digestion",
+          "role": "benefit",
+          "animation": "Slide in from right 0.25 seconds after first benefit; appear with checkmark pop."
+        },
+        {
+          "type": "icon",
+          "content": "minimal thermometer icon and stomach icon",
+          "role": "supporting-visual",
+          "animation": "Icons draw on with stroke animation, then gently bob.",
+          "asset": "assets/scene-3-4-minimal-thermometer-icon-and-stomach-icon.png"
+        }
+      ],
+      "visual_direction": "Use a split-card layout with two rounded white cards on a pale blue background. Add animated checkmarks and small floating droplets for energy."
+    },
+    {
+      "id": "scene-4",
+      "start": 7,
+      "duration": 3,
+      "purpose": "End with a memorable daily hydration call to action.",
+      "elements": [
+        {
+          "type": "text",
+          "content": "Small sips.",
+          "role": "headline",
+          "animation": "Pop in quickly at center."
+        },
+        {
+          "type": "text",
+          "content": "Big impact.",
+          "role": "headline",
+          "animation": "Pop in 0.35 seconds after first line; slightly larger scale."
+        },
+        {
+          "type": "text",
+          "content": "Drink water today.",
+          "role": "call-to-action",
+          "animation": "Fade in at bottom; slide up 25px."
+        },
+        {
+          "type": "shape",
+          "content": "animated circular water ripple around central text",
+          "role": "hero-accent",
+          "animation": "Ripple expands outward from center, fades, and repeats twice."
+        },
+        {
+          "type": "shape",
+          "content": "rounded blue button-style highlight behind call-to-action",
+          "role": "cta-background",
+          "animation": "Scale in from 80% to 100% with ease-out."
+        }
+      ],
+      "visual_direction": "Final scene should feel upbeat and polished. Center the main message, use bold blue typography, animated ripples, and a clean white-to-light-blue gradient background."
+    }
+  ],
+  "assets": [
+    {
+      "path": "assets/scene-2-3-minimal-lightning-bolt-icon.png",
+      "scene": "scene-2",
+      "type": "icon",
+      "content": "minimal lightning bolt icon"
+    },
+    {
+      "path": "assets/scene-3-4-minimal-thermometer-icon-and-stomach-icon.png",
+      "scene": "scene-3",
+      "type": "icon",
+      "content": "minimal thermometer icon and stomach icon"
+    }
+  ]
+}

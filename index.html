@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: #050814;
+  font-family: Inter, Arial, sans-serif;
+}
+
+#root {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      #111b3a 0%,
+      #080d1e 50%,
+      #03050b 100%
+    );
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 1;
+}
+
+.scene-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.scene-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  background-image:
+    linear-gradient(
+      rgba(60,150,255,0.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(60,150,255,0.08) 1px,
+      transparent 1px
+    );
+  background-size: 70px 70px;
+}
+
+.glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.glow-one {
+  left: 5%;
+  top: 5%;
+  background: rgba(30,110,255,0.18);
+}
+
+.glow-two {
+  right: 5%;
+  bottom: 5%;
+  background: rgba(110,60,255,0.15);
+}
+
+.text-element {
+  position: absolute;
+  height: auto;
+  max-height: none;
+  overflow: visible;
+  white-space: normal;
+  z-index: 10;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  white-space: normal;
+}
+
+.text-eyebrow {
+  left: 8%;
+  top: 10%;
+  width: 84%;
+  max-width: 84%;
+  font-size: clamp(18px, 1.5vw, 28px);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #65c7ff;
+}
+
+.text-headline {
+  left: 8%;
+  top: 18%;
+  width: 84%;
+  max-width: 84%;
+  height: auto;
+  max-height: none;
+  font-size: clamp(38px, 4vw, 72px);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #ffffff;
+  overflow: visible;
+  white-space: normal;
+}
+
+/* Generic secondary-text positioning.
+   Prevents multiple text elements with the same role
+   from occupying the exact same visual zone. */
+.text-element[data-text-index="1"] {
+  top: 34%;
+}
+
+.text-element[data-text-index="2"] {
+  top: 50%;
+}
+
+.text-element[data-text-index="3"] {
+  top: 66%;
+}
+
+.text-headline[data-text-index="1"] {
+  top: 32%;
+  font-size: clamp(32px, 3.2vw, 60px);
+}
+
+.text-supporting {
+  left: 8%;
+  top: 48%;
+  width: 70%;
+  max-width: 70%;
+  height: auto;
+  max-height: none;
+  font-size: clamp(20px, 1.7vw, 30px);
+  line-height: 1.35;
+  font-weight: 400;
+  color: #aab6d0;
+  overflow: visible;
+  white-space: normal;
+}
+
+.text-cta {
+  left: 8%;
+  bottom: 9%;
+  width: auto;
+  max-width: 70%;
+  padding: 18px 32px;
+  border-radius: 14px;
+  font-size: clamp(20px, 2vw, 32px);
+  line-height: 1.2;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    #168cff,
+    #6d4aff
+  );
+  box-shadow:
+    0 18px 50px rgba(40,100,255,0.3);
+}
+
+.visual-asset {
+  position: absolute;
+  z-index: 7;
+  left: 8%;
+  top: 30%;
+  width: 84%;
+  height: 42%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 24px;
+  display: block;
+}
+
+.visual-card {
+  position: absolute;
+  z-index: 8;
+  right: 7%;
+  top: 22%;
+  width: 38%;
+  height: 55%;
+  max-width: 680px;
+  max-height: 600px;
+  padding: 28px;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(130,180,255,0.24);
+  background: rgba(13,20,42,0.92);
+  box-shadow:
+    0 30px 100px rgba(0,0,0,0.45);
+}
+
+.card-title {
+  width: 100%;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  font-size: clamp(18px, 1.4vw, 26px);
+  line-height: 1.25;
+  font-weight: 700;
+  color: #d7e2ff;
+}
+
+.card-body {
+  margin-top: 28px;
+}
+
+.code-line {
+  height: 12px;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  background: rgba(100,190,255,0.28);
+}
+
+.code-line.long {
+  width: 90%;
+}
+
+.code-line.medium {
+  width: 65%;
+}
+
+.code-line.short {
+  width: 42%;
+}
+
+.status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.status-row span {
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: rgba(72,224,164,0.1);
+  color: #55e5a9;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.progress-track {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: 28px;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    #20a5ff,
+    #6c5cff
+  );
+}
+
+.asset-element {
+  position: absolute;
+  left: 8%;
+  top: 28%;
+  width: 84%;
+  height: 48%;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.asset-element img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 24px;
+  filter: drop-shadow(0 25px 60px rgba(0,0,0,0.35));
+}
+
+.decor {
+  position: absolute;
+  z-index: 2;
+  border: 1px solid rgba(80,180,255,0.22);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.decor-0 {
+  width: 220px;
+  height: 220px;
+  right: 8%;
+  top: 10%;
+}
+
+.decor-1 {
+  width: 100px;
+  height: 100px;
+  left: 7%;
+  bottom: 8%;
+}
+
+@media (max-aspect-ratio: 1/1) {
+
+  .text-eyebrow {
+    left: 8%;
+    top: 8%;
+    width: 84%;
+    max-width: 84%;
+  }
+
+  .text-headline {
+    left: 8%;
+    top: 15%;
+    width: 84%;
+    max-width: 84%;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    font-size: clamp(38px, 7vw, 68px);
+    line-height: 1.08;
+    overflow-wrap: break-word;
+  }
+
+  .text-supporting {
+    left: 8%;
+    top: 45%;
+    width: 84%;
+    max-width: 84%;
+    max-height: 17%;
+    font-size: clamp(19px, 3.5vw, 31px);
+  }
+
+  .text-cta {
+    left: 8%;
+    bottom: 7%;
+    max-width: 84%;
+    font-size: clamp(18px, 3.5vw, 28px);
+  }
+
+  .visual-card {
+    left: 8%;
+    right: auto;
+    top: 64%;
+    width: 84%;
+    max-width: 84%;
+    height: 24%;
+    padding: 18px;
+  }
+
+  .decor-0 {
+    width: 140px;
+    height: 140px;
+    right: 5%;
+    top: 5%;
+  }
+
+  .decor-1 {
+    width: 80px;
+    height: 80px;
+    left: 5%;
+    bottom: 5%;
+  }
+}
+
+@media (max-aspect-ratio: 1/1) and (max-height: 1400px) {
+
+  .text-headline {
+    font-size: clamp(34px, 7vw, 62px);
+  }
+
+  .text-supporting {
+    font-size: clamp(18px, 3vw, 26px);
+  }
+
+}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+</head>
+
+<body>
+
+<div
+  id="root"
+  data-composition-id="root"
+  data-width="1080"
+  data-height="1920"
+>
+
+
+    <section
+      id="scene-1"
+      class="scene clip scene-0"
+      data-scene="scene-1"
+      data-start="0"
+      data-duration="2"
+    >
+      <div class="scene-content">
+
+        <div class="scene-bg">
+          <div class="grid"></div>
+          <div class="glow glow-one"></div>
+          <div class="glow glow-two"></div>
+        </div>
+  
+        <div
+          class="text-element text-headline"
+          data-role="headline"
+          data-text-index="0"
+          data-animation="Scale up from 90% to 100% with a quick ease-out pop; slight upward slide."
+        >DRINK WATER</div>
+      
+        <div
+          class="text-element text-headline"
+          data-role="headline"
+          data-text-index="1"
+          data-animation="Fade in 0.3 seconds after headline; slide up 30px."
+        >Your body runs on it.</div>
+      
+        <div
+          class="decor decor-0"
+          data-role="background-accent"
+        ></div>
+      
+      </div>
+    </section>
+  
+
+    <section
+      id="scene-2"
+      class="scene clip scene-1"
+      data-scene="scene-2"
+      data-start="2"
+      data-duration="2.5"
+    >
+      <div class="scene-content">
+
+        <div class="scene-bg">
+          <div class="grid"></div>
+          <div class="glow glow-one"></div>
+          <div class="glow glow-two"></div>
+        </div>
+  
+        <div
+          class="text-element text-headline"
+          data-role="headline"
+          data-text-index="0"
+          data-animation="Slide in from left with motion blur; settle with a small bounce."
+        >Boosts Energy</div>
+      
+        <div
+          class="text-element text-supporting"
+          data-role="supporting"
+          data-text-index="1"
+          data-animation="Fade in line by line from bottom."
+        >Helps you stay alert, focused, and ready to move.</div>
+      
+        <img
+          class="visual-asset"
+          src="assets/scene-2-3-minimal-lightning-bolt-icon.png"
+          alt="minimal lightning bolt icon"
+          data-asset-index="0"
+          data-role="supporting-visual"
+        />
+      
+        <div
+          class="decor decor-0"
+          data-role="motion-accent"
+        ></div>
+      
+      </div>
+    </section>
+  
+
+    <section
+      id="scene-3"
+      class="scene clip scene-2"
+      data-scene="scene-3"
+      data-start="4.5"
+      data-duration="2.5"
+    >
+      <div class="scene-content">
+
+        <div class="scene-bg">
+          <div class="grid"></div>
+          <div class="glow glow-one"></div>
+          <div class="glow glow-two"></div>
+        </div>
+  
+        <div
+          class="text-element text-headline"
+          data-role="headline"
+          data-text-index="0"
+          data-animation="Fade in with vertical wipe from bottom to top."
+        >Regulates + Supports</div>
+      
+        <div
+          class="text-element text-supporting"
+          data-role="supporting"
+          data-text-index="1"
+          data-animation="Slide in from right; appear with checkmark pop."
+        >Temperature control</div>
+      
+        <div
+          class="text-element text-supporting"
+          data-role="supporting"
+          data-text-index="2"
+          data-animation="Slide in from right 0.25 seconds after first benefit; appear with checkmark pop."
+        >Healthy digestion</div>
+      
+        <img
+          class="visual-asset"
+          src="assets/scene-3-4-minimal-thermometer-icon-and-stomach-icon.png"
+          alt="minimal thermometer icon and stomach icon"
+          data-asset-index="0"
+          data-role="supporting-visual"
+        />
+      
+      </div>
+    </section>
+  
+
+    <section
+      id="scene-4"
+      class="scene clip scene-3"
+      data-scene="scene-4"
+      data-start="7"
+      data-duration="3"
+    >
+      <div class="scene-content">
+
+        <div class="scene-bg">
+          <div class="grid"></div>
+          <div class="glow glow-one"></div>
+          <div class="glow glow-two"></div>
+        </div>
+  
+        <div
+          class="text-element text-headline"
+          data-role="headline"
+          data-text-index="0"
+          data-animation="Pop in quickly at center."
+        >Small sips.</div>
+      
+        <div
+          class="text-element text-headline"
+          data-role="headline"
+          data-text-index="1"
+          data-animation="Pop in 0.35 seconds after first line; slightly larger scale."
+        >Big impact.</div>
+      
+        <div
+          class="text-element text-cta"
+          data-role="cta"
+          data-text-index="2"
+          data-animation="Fade in at bottom; slide up 25px."
+        >Drink water today.</div>
+      
+        <div
+          class="decor decor-0"
+          data-role="hero-accent"
+        ></div>
+      
+        <div
+          class="decor decor-1"
+          data-role="cta-background"
+        ></div>
+      
+      </div>
+    </section>
+  
+
+</div>
+
+<script>
+
+const tl = gsap.timeline({
+  paused: true
+});
+
+window.__timelines = window.__timelines || {};
+window.__timelines["root"] = tl;
+
+
+    // Scene 1
+
+    tl.to(".scene-0 .scene-content", {
+      opacity: 1,
+      duration: 0.01
+    }, 0);
+  
+        tl.fromTo(
+          ".scene-0 .text-element[data-text-index='0']",
+          {
+            opacity: 0,
+            y: 28
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            ease: "power2.out"
+          },
+          0
+        );
+      
+        tl.fromTo(
+          ".scene-0 .text-element[data-text-index='1']",
+          {
+            opacity: 0,
+            y: 28
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            ease: "power2.out"
+          },
+          0.12
+        );
+      
+    tl.to(
+      ".scene-0 .scene-content",
+      {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in"
+      },
+      1.7
+    );
+
+    tl.set(
+      ".scene-0 .scene-content",
+      {
+        opacity: 0
+      },
+      2
+    );
+  
+
+    // Scene 2
+
+    tl.to(".scene-1 .scene-content", {
+      opacity: 1,
+      duration: 0.01
+    }, 2);
+  
+        tl.fromTo(
+          ".scene-1 .text-element[data-text-index='0']",
+          {
+            opacity: 0,
+            y: 28
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            ease: "power2.out"
+          },
+          2
+        );
+      
+        tl.fromTo(
+          ".scene-1 .text-element[data-text-index='1']",
+          {
+            opacity: 0,
+            y: 28
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            ease: "power2.out"
+          },
+          2.12
+        );
+      
+        tl.fromTo(
+          ".scene-1 .visual-asset[data-asset-index='0']",
+          {
+            opacity: 0,
+            scale: 0.94
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: "power2.out"
+          },
+          2.2
+        );
+      
+    tl.to(
+      ".scene-1 .scene-content",
+      {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in"
+      },
+      4.2
+    );
+
+    tl.set(
+      ".scene-1 .scene-content",
+      {
+        opacity: 0
+      },
+      4.5
+    );
+  
+
+    // Scene 3
+
+    tl.to(".scene-2 .scene-content", {
+      opacity: 1,
+      duration: 0.01
+    }, 4.5);
+  
+        tl.fromTo(
+          ".scene-2 .text-element[data-text-index='0']",
+          {
+            opacity: 0,
+            y: 28
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            ease: "power2.out"
+          },
+          4.5
+        );
+      
+        tl.fromTo(
+          ".scene-2 .text-element[data-text-index='1']",
+          {
+            opacity: 0,
+            y: 28
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            ease: "power2.out"
+          },
+          4.62
+        );
+      
+        tl.fromTo(
+          ".scene-2 .text-element[data-text-index='2']",
+          {
+            opacity: 0,
+            y: 28
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            ease: "power2.out"
+          },
+          4.74
+        );
+      
+        tl.fromTo(
+          ".scene-2 .visual-asset[data-asset-index='0']",
+          {
+            opacity: 0,
+            scale: 0.94
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: "power2.out"
+          },
+          4.7
+        );
+      
+    tl.to(
+      ".scene-2 .scene-content",
+      {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in"
+      },
+      6.7
+    );
+
+    tl.set(
+      ".scene-2 .scene-content",
+      {
+        opacity: 0
+      },
+      7
+    );
+  
+
+    // Scene 4
+
+    tl.to(".scene-3 .scene-content", {
+      opacity: 1,
+      duration: 0.01
+    }, 7);
+  
+        tl.fromTo(
+          ".scene-3 .text-element[data-text-index='0']",
+          {
+            opacity: 0,
+            y: 28
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            ease: "power2.out"
+          },
+          7
+        );
+      
+        tl.fromTo(
+          ".scene-3 .text-element[data-text-index='1']",
+          {
+            opacity: 0,
+            y: 28
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            ease: "power2.out"
+          },
+          7.12
+        );
+      
+        tl.fromTo(
+          ".scene-3 .text-element[data-text-index='2']",
+          {
+            opacity: 0,
+            y: 28
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            ease: "power2.out"
+          },
+          7.24
+        );
+      
+    tl.to(
+      ".scene-3 .scene-content",
+      {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in"
+      },
+      9.7
+    );
+
+    tl.set(
+      ".scene-3 .scene-content",
+      {
+        opacity: 0
+      },
+      10
+    );
+  
+
+window.HF_READY = true;
+
+window.HF_GET_DURATION = () => {
+  return 10;
+};
+
+</script>
+
+</body>
+</html>

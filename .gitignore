@@ -1,0 +1,14 @@
+.env
+node_modules/
+.DS_Store
+.thumbnails/
+output.mp4
+output.working.mp4
+renders/
+snapshots/
+verification/
+*.working.json
+
+.hyperframes/
+*.backup.js
+*.working.js

@@ -1,0 +1,16 @@
+{
+  "name": "myproject",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.27 preview",
+    "check": "npx --yes hyperframes@0.8.27 check",
+    "render": "npx --yes hyperframes@0.8.27 render",
+    "publish": "npx --yes hyperframes@0.8.27 publish",
+    "verify": "node src/pipeline.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "openai": "^7.9.0"
+  }
+}
